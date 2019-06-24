@@ -116,33 +116,31 @@ export const actions = {
       issue: resp.data.issue
     })
   },
-  // eslint-disable-next-line require-await
   [sendTimeCardToServer]: async ({ commit, state }, { serverKey, day }) => {
     const server = state.servers[serverKey]
     for (const [key, duration] of Object.entries(state.durations)) {
       const issue = state.issues[key]
       if (issue.serverKey === serverKey) {
+        const hours = toHours(duration)
+        if (hours === 0) {
+          continue
+        }
         const bodyXml = `<?xml version="1.0" encoding="UTF-8"?>
 <time_entry>
-  <issue id="${issue.issue.id}" />
-  <hours>${toHours(duration)}</hours>
+  <issue_id>${issue.issue.id}</issue_id>
+  <hours>${hours}</hours>
   <spent_on>${day}</spent_on>
 </time_entry>
 `
-        // eslint-disable-next-line no-console
-        console.log(issue.issue, bodyXml)
-        const resp = await axios.post(
-          serverKey + '/time_entries.xml',
-          bodyXml,
-          {
-            params: {
-              key: server.token
-            }
+        await axios.post(serverKey + '/time_entries.xml', bodyXml, {
+          params: {
+            key: server.token
+          },
+          headers: {
+            'Content-Type': 'text/xml'
           }
-        )
-        // eslint-disable-next-line no-console
-        console.log(resp)
-        delete state.durations[key]
+        })
+        commit(setDuration, { key, duration: undefined })
       }
     }
   }
