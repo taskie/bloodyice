@@ -117,10 +117,16 @@ export const actions = {
     })
   },
   [sendTimeCardToServer]: async ({ commit, state }, { serverKey, day }) => {
+    if (state.issues == null || state.servers == null) {
+      return
+    }
     const server = state.servers[serverKey]
     for (const [key, duration] of Object.entries(state.durations)) {
       const issue = state.issues[key]
       if (issue.serverKey === serverKey) {
+        if (issue.issue == null) {
+          continue
+        }
         const hours = toHours(duration)
         if (hours === 0) {
           continue
@@ -137,7 +143,7 @@ export const actions = {
             key: server.token
           },
           headers: {
-            'Content-Type': 'text/xml'
+            'Content-Type': 'application/xml'
           }
         })
         commit(setDuration, { key, duration: undefined })
