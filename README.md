@@ -1,22 +1,42 @@
-# bloodyice
+# Nuxt 3 Minimal Starter
 
-> Redmine Frontend
+Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Build Setup
+## Setup
 
-``` bash
-# install dependencies
-$ yarn install
+Make sure to install the dependencies:
 
-# serve with hot reload at localhost:3000
-$ yarn run dev
+```bash
+# yarn
+yarn install
 
-# build for production and launch server
-$ yarn run build
-$ yarn start
+# npm
+npm install
 
-# generate static project
-$ yarn run generate
+# pnpm
+pnpm install
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+## Development Server
+
+Start the development server on `http://localhost:3000`
+
+```bash
+npm run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+npm run build
+```
+
+Locally preview production build:
+
+```bash
+npm run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

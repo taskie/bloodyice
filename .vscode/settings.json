@@ -1,0 +1,14 @@
+{
+    "[vue]": {
+        "editor.indentSize": 2,
+        "editor.tabSize": 2,
+    },
+    "[javascript]": {
+        "editor.indentSize": 2,
+        "editor.tabSize": 2,
+    },
+    "[typescript]": {
+        "editor.indentSize": 2,
+        "editor.tabSize": 2,
+    },
+}
